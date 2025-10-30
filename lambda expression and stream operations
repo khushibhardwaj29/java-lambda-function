@@ -1,0 +1,56 @@
+import java.util.*;
+import java.util.stream.*;
+
+class Student {
+    String name;
+    int marks;
+
+    Student(String name, int marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + marks + ")";
+    }
+}
+
+public class LambdaStreamExample {
+    public static void main(String[] args) {
+        // Creating a list of students
+        List<Student> students = Arrays.asList(
+            new Student("Khushi", 85),
+            new Student("Ravi", 65),
+            new Student("Neha", 92),
+            new Student("Aman", 75),
+            new Student("Rohit", 58)
+        );
+
+        System.out.println("All Students:");
+        students.forEach(s -> System.out.println(s));
+
+        // Filter students with marks > 70 using lambda + stream
+        System.out.println("\nStudents scoring above 70:");
+        students.stream()
+                .filter(s -> s.marks > 70)
+                .forEach(s -> System.out.println(s.name + " - " + s.marks));
+
+        // Sort students by marks using stream and lambda
+        System.out.println("\nStudents sorted by marks:");
+        students.stream()
+                .sorted((s1, s2) -> Integer.compare(s1.marks, s2.marks))
+                .forEach(System.out::println);
+
+        // Find the top scorer using max()
+        Student topStudent = students.stream()
+                .max(Comparator.comparingInt(s -> s.marks))
+                .orElse(null);
+        System.out.println("\nTop Scorer: " + topStudent.name + " (" + topStudent.marks + ")");
+
+        // Calculate average marks using stream
+        double avgMarks = students.stream()
+                .collect(Collectors.averagingInt(s -> s.marks));
+        System.out.println("\nAverage Marks: " + avgMarks);
+    }
+}
