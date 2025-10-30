@@ -1,0 +1,49 @@
+import java.util.*;
+import java.util.function.*;
+
+public class WrapperLambdaDemo {
+    public static void main(String[] args) {
+        // --- Wrapper Class Example ---
+        Integer intObj = Integer.valueOf(50);  // Boxing
+        Double doubleObj = Double.valueOf(12.5);
+        Character charObj = Character.valueOf('A');
+
+        System.out.println("Wrapper Class Objects:");
+        System.out.println("Integer Object: " + intObj);
+        System.out.println("Double Object: " + doubleObj);
+        System.out.println("Character Object: " + charObj);
+
+        // --- Unboxing Example ---
+        int num = intObj;           // Unboxing (Integer -> int)
+        double value = doubleObj;   // Unboxing (Double -> double)
+        char letter = charObj;      // Unboxing (Character -> char)
+
+        System.out.println("\nAfter Unboxing:");
+        System.out.println("int value: " + num);
+        System.out.println("double value: " + value);
+        System.out.println("char value: " + letter);
+
+        // --- Lambda Expression Example ---
+        List<Integer> numbers = Arrays.asList(10, 25, 35, 50, 75, 100);
+
+        System.out.println("\nOriginal List: " + numbers);
+
+        // Using lambda to filter numbers greater than 30
+        System.out.println("Numbers greater than 30:");
+        numbers.stream()
+                .filter(n -> n > 30)
+                .forEach(System.out::println);
+
+        // Using lambda to find sum using reduce()
+        int sum = numbers.stream()
+                .reduce(0, (a, b) -> a + b);
+        System.out.println("\nSum of all numbers: " + sum);
+
+        // Using a lambda with Predicate functional interface
+        Predicate<Integer> isEven = n -> n % 2 == 0;
+        System.out.println("\nEven Numbers:");
+        numbers.stream()
+                .filter(isEven)
+                .forEach(System.out::println);
+    }
+}
